@@ -3,6 +3,8 @@ package tenacity.GUI;
 import javax.swing.*;
 import javax.swing.text.*;
 
+import tenacity.Network.EntryActionListener;
+
 //import tenacity.Network.EntryActionListener;
 
 import java.awt.*;
@@ -22,7 +24,7 @@ public class GUI {
 	static JTextField entry;
 	static JLabel timeLabel;
 	static Font font = new Font("Arial",Font.PLAIN,12);
-	//static EntryActionListener entryListener = new EntryActionListener();
+	static EntryActionListener entryListener = new EntryActionListener();
 	
 	public static void initGUI() {
 		    	
@@ -72,8 +74,8 @@ public class GUI {
 		        pane.add(textAreaScroll, c);
 		        
 		        entry = new JTextField();
-		        //entry.addActionListener(entryListener);
-		        //entryListener.start();
+		        entry.addActionListener(entryListener);
+		        entryListener.start();
 		        entry.setBackground(StyleManager.bgColor);
 		        entry.setForeground(StyleManager.fgColor);
 		        c.fill = GridBagConstraints.BOTH;
@@ -138,6 +140,7 @@ public class GUI {
     
     //This method is pretty cool, just saying. If you pass any text to it with the string "\\_STYLE\" inside of it where "style"
     //is any of the styles from StyleManager in addStylesToDocument, it applies the styles to them. Pretty sexy if you ask me.
+    //Also, I know it's a damn mess.
     public static void printParseColor(String str) {
         try {
         	//str = ENTIRE string

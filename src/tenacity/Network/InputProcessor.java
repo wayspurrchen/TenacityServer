@@ -1,29 +1,27 @@
 package tenacity.Network;
 
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.net.Socket;
 import java.util.regex.Pattern;
 
 import tenacity.Core.PlayerActions;
+import tenacity.Core.World;
+import tenacity.Entity.Player;
 import tenacity.Entity.PlayerClient;
 
 public class InputProcessor extends Thread {
-	DatagramPacket packet;
+	Socket socket;
 	String inputText;
 	String[] splitText;
-	PlayerClient clientPlayer;
+	Player clientPlayer;
 	ClientSession clientSession;
-	boolean sessionExists = false;
-	int port;
-	InetAddress address;
+	boolean serverSide = false;
 	
-	public InputProcessor(DatagramPacket packet, String cmd, InetAddress address, int port) {
-		this.packet = packet;
-		this.port = port;
-		this.address = address;
+	public InputProcessor(String cmd, ClientSession clientSession) {
+		this.clientSession = clientSession;
+		this.clientPlayer = clientSession.getClientPlayer();
+		this.socket = clientSession.getClientSocket();
 		
-		for (int i=0;i<NetworkCore.sessions.size();i++) {
+		/*for (int i=0;i<NetworkCore.sessions.size();i++) {
 			ClientSession compSession = NetworkCore.sessions.get(i);
 			System.out.println("it "+i+" "+compSession);
 			System.out.println(compSession.address.getHostAddress()+" vs "+packet.getAddress().getHostAddress());
@@ -35,12 +33,20 @@ public class InputProcessor extends Thread {
 				System.out.println("Input processor created, bound to "+clientSession);
 				break;
 			}
-		}
+		}*/
 		
 		inputText = cmd;
 		splitText = splitInputText();
 		this.setName("InputProcessor");
-		System.out.println("Input processor created, unbound");
+		System.out.println("Input processor created via client-received input");
+	}
+	
+	public InputProcessor(String cmd) {
+		this.setName("InputProcessor");
+		inputText = cmd;
+		splitText = splitInputText();
+		clientPlayer = World.playerServer;
+		System.out.println("Input processor created via server-side input");
 	}
 	
 	String[] splitInputText() {
@@ -66,37 +72,21 @@ public class InputProcessor extends Thread {
 	}
 	
 	public void run() {
-		System.out.println("Input processor running");
+		System.out.println("Input processor running command \"" + inputText + "\"");
 		
 		String[] input = splitInputText();
 		
 		if (input[0].equals("send") && input.length>2) {
 			
-		} else if (input[0].equals("CONREQ")) {
-        	if (!sessionExists) {
-        		try {
-					NetworkActions.createClientSession(address,Integer.parseInt(input[1]),input[2]);
-				} catch (NumberFormatException e) {
-					e.printStackTrace();
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				}
-	        } else System.out.println("Session already exists, clientSession not initialized");
 		} else if (input[0].equals("look")) {
-			if (sessionExists) {
-				PlayerActions.look(clientPlayer);
-				System.out.println("InputProcessor sent look with "+clientPlayer);
-			} else System.out.println("[look] command received, client is not initiated!");
+			PlayerActions.look(clientPlayer);
+			System.out.println("InputProcessor sent look with "+clientPlayer);
 		} else if (input[0].equals("say") && input.length>1) {
-			if (sessionExists) {
-				PlayerActions.say(clientPlayer, stringAfter(input,0));
-				System.out.println("InputProcessor sent look with "+clientPlayer);
-			} else System.out.println("[say] command received, client is not initiated!");
+			PlayerActions.say(clientPlayer, stringAfter(input,0));
+			System.out.println("InputProcessor sent look with "+clientPlayer);
 		} else if (input[0].equals("emote") || input[0].equals("me") || input[0].equals("em") && input.length>1) {
-			if (sessionExists) {
-				PlayerActions.emote(clientPlayer, stringAfter(input,0));
-				System.out.println("InputProcessor sent emote with "+clientPlayer);
-			} else System.out.println("[emote] command received, client is not initiated!");
+			PlayerActions.emote(clientPlayer, stringAfter(input,0));
+			System.out.println("InputProcessor sent emote with "+clientPlayer);
 		}
 		
 		

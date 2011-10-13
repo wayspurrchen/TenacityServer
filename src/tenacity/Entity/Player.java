@@ -1,10 +1,15 @@
 
 package tenacity.Entity;
 
+import tenacity.Network.ClientSession;
+
 public class Player extends DynamicBeing {
 	
-	public Player(String name) {
+	ClientSession session = null;
+	
+	public Player(String name, ClientSession session) {
 		this.name = name;
+		this.session = session;
 		placeX = 0;
 		placeY = 0;
 		placeZ = 0;
@@ -15,6 +20,9 @@ public class Player extends DynamicBeing {
 		descPlace = "A player named \\_player\\"+getName();
 	}
 	
+	public ClientSession getClientSession() {
+		return session;
+	}
 
 	
 	// used for getTraitValue, getTraitIndex, and firstOrSecondary

@@ -1,4 +1,4 @@
-/*cpackage tenacity.Network;
+package tenacity.Network;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,4 +12,4 @@ public class EntryActionListener extends Thread implements ActionListener {
 		new InputProcessor(GUI.getEntryText()).start();
 	}
 	
-}*/
+}

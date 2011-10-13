@@ -11,7 +11,7 @@ public class ObserveAppearance extends Action {
 	}
 
 	void execute() {
-		Data data = target.getDataByType("appearance");
+		Data data = target.getDataSystem().getDataByType("appearance");
 		actor.getMind().enterData(data);
 		System.out.println(actor + " (" + actor.getName() + ") observed appearance of " + target
 				+ " (" + target.getName() + "), " + actor + " has added data entry" + data);

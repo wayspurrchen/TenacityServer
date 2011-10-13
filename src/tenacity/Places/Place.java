@@ -24,60 +24,48 @@ public abstract class Place {
 					if (tmpArea!=null) {
 						for (int l=0;l<=10;l++) {
 							if (tmpArea.getExitBoolByIndex(l)==true) {
-								//System.out.println("Boolean check, has exit");
-								int reverseDirectionInt = 0;
 								Area tmpConnectedArea = null;
 								boolean tmpConnectorConnects = false;
 								switch (l) {
 									case 1: //N
 										tmpConnectedArea = getAreaByCoords(i,j-1,k);
-										reverseDirectionInt = 4;
-										if (tmpConnectedArea.exitExistsS()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsS()) tmpConnectorConnects = true;
 										break;
 									case 2: //E
 										tmpConnectedArea = getAreaByCoords(i+1,j,k);
-										reverseDirectionInt = 3;
-										if (tmpConnectedArea.exitExistsW()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsW()) tmpConnectorConnects = true;
 										break;
 									case 3: //W
 										tmpConnectedArea = getAreaByCoords(i-1,j,k);
-										reverseDirectionInt = 2;
-										if (tmpConnectedArea.exitExistsE()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsE()) tmpConnectorConnects = true;
 										break;
 									case 4: //S
 										tmpConnectedArea = getAreaByCoords(i,j+1,k);
-										reverseDirectionInt = 1;
-										if (tmpConnectedArea.exitExistsN()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsN()) tmpConnectorConnects = true;
 										break;
 									case 5: //NW
 										tmpConnectedArea = getAreaByCoords(i-1,j-1,k);
-										reverseDirectionInt = 8;
-										if (tmpConnectedArea.exitExistsSE()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsSE()) tmpConnectorConnects = true;
 										break;
 									case 6: //NE
 										tmpConnectedArea = getAreaByCoords(i+1,j-1,k);
-										reverseDirectionInt = 7;
-										if (tmpConnectedArea.exitExistsSW()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsSW()) tmpConnectorConnects = true;
 										break;
 									case 7: //SW
 										tmpConnectedArea = getAreaByCoords(i-1,j+1,k);
-										reverseDirectionInt = 6;
-										if (tmpConnectedArea.exitExistsNE()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsNE()) tmpConnectorConnects = true;
 										break;
 									case 8: //SE
 										tmpConnectedArea = getAreaByCoords(i+1,j+1,k);
-										reverseDirectionInt = 5;
-										if (tmpConnectedArea.exitExistsNW()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsNW()) tmpConnectorConnects = true;
 										break;
 									case 9: //U
 										tmpConnectedArea = getAreaByCoords(i,j,k+1);
-										reverseDirectionInt = 10;
-										if (tmpConnectedArea.exitExistsU()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsU()) tmpConnectorConnects = true;
 										break;
 									case 10: //D
 										tmpConnectedArea = getAreaByCoords(i,j,k-1);
-										reverseDirectionInt = 9;
-										if (tmpConnectedArea.exitExistsD()) tmpConnectorConnects = true;
+									if (tmpConnectedArea.exitExistsD()) tmpConnectorConnects = true;
 										break;
 								}
 								if (tmpConnectedArea!=null)  {

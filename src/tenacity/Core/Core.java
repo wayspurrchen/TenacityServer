@@ -20,12 +20,14 @@ public class Core {
     
     static long next_game_tick = elapsedTime();
     static long sleep_time = 0;
+    
+    public PlayerServer playerServer;
 	
 	public static void main(String args[]) throws Exception {
-		//networkCore = new NetworkCore();
 		GUI.initGUI();
 		GUI.println("Server app");
-		World.setupWorld();
+		if (!World.setupWorld()) throw new Exception("ERROR: WORLD NOT SET UP");
+		networkCore = new NetworkCore();
 		
 		while (gameRunning) {
 	    	Iterator<Entity> evIterator = Entity.getEntityVector().iterator();

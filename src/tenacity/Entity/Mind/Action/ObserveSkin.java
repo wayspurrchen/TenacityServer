@@ -11,7 +11,7 @@ public class ObserveSkin extends Action {
 	}
 
 	void execute() {
-		Data data = target.getDataByType("being").getChildrenByType("appearance").getChildrenByType("skin");
+		Data data = target.getDataSystem().getDataByType("being").getChildrenByType("appearance").getChildrenByType("skin");
 		actor.getMind().enterData(data);
 		System.out.println(actor + " (" + actor.getName() + ") observed skin of " + target
 				+ " (" + target.getName() + "), " + actor + " has added data entry" + data);

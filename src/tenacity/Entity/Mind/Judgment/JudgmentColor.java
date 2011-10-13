@@ -5,7 +5,7 @@ import tenacity.Entity.Entity;
 public class JudgmentColor extends Judgment {
 	
 	String judge(Entity ent) {
-		return ent.getDataByType("color").value();
+		return ent.getDataSystem().getDataByType("color").value();
 	}
 	
 }

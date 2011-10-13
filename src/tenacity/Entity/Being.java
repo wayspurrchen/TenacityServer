@@ -35,9 +35,9 @@ public abstract class Being extends Entity {
 		className = "Being";
 		descShort = "A being";
 		descPlace = "A dynamic-looking being that shouldn't be here";
-		addData(new tenacity.Entity.Mind.Data.Being(this));
-		getDataByType("being").addDataChild(new Appearance());
-		getDataByType("being").getChildrenByType("appearance").addDataChild(new Skin());
+		getDataSystem().addData(new tenacity.Entity.Mind.Data.Being(this));
+		getDataSystem().getDataByType("being").addDataChild(new Appearance());
+		getDataSystem().getDataByType("being").getChildrenByType("appearance").addDataChild(new Skin());
 	}
 	
 	public Inventory getInv() {

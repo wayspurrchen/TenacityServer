@@ -16,7 +16,6 @@ public class Mind {
 	Data lastData;
 	
 	Hashtable<String, Vector<Data>> dataArraysHash = new Hashtable<String, Vector<Data>>();
-	Hashtable<String,Integer> needsHash = new Hashtable<String,Integer>();
 	
 	public Mind() {
 		

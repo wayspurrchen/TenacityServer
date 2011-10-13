@@ -11,7 +11,7 @@ public class ObserveBeing extends Action {
 	}
 
 	void execute() {
-		Data data = target.getDataByType("being");
+		Data data = target.getDataSystem().getDataByType("being");
 		actor.getMind().enterData(data);
 		System.out.println(actor + " (" + actor.getName() + ") observed being of " + target
 				+ " (" + target.getName() + "), " + actor + " has added data entry" + data);

@@ -6,6 +6,7 @@ import tenacity.Core.Core;
 import tenacity.Core.World;
 import tenacity.Entity.Mind.Data.Color;
 import tenacity.Entity.Mind.Data.Data;
+import tenacity.Entity.Mind.Data.DataSystem;
 import tenacity.GUI.GUI;
 import tenacity.Places.Area;
 import tenacity.Places.Place;
@@ -20,7 +21,7 @@ public abstract class Entity {
 	protected String descLong = "Still a blank, but longer description for abstract item class."; // This is a longer in-inventory description.
 	protected String descPlace = "An abstract concept of an entity that shouldn't even be here."; // Defines a description of an object as it is located within a place/location
 
-	public Vector<Data> dataVector = new Vector<Data>();
+	public DataSystem dataSystem = new DataSystem(this);
 	
 	int[] placeXYZ = { 0, 0, 0 };
 	
@@ -104,63 +105,8 @@ public abstract class Entity {
 		//System.out.println("totalAge of "+this+": "+totalAge);
 	}
 	
-	//BEWARE--MOST LIKELY RESOURCE INTENSIVE
-	//NEED TO FIX
-	public Data searchDataByType(String string) {
-		return new Color("green");
-	}
-	
-	public Data getDataByType(String typeString) {
-		return iterateData(typeString);
-	}
-	
-	public void removeDataByType(String string) {
-		dataVector.remove(iterateDataToIndex(string));
-	}
-	
-	Data iterateData(String string) {
-		boolean initialFound = false;
-		Data foundData = null;
-		for (int i = 0;i<dataVector.size();i++) {
-			if (dataVector.get(i).type().equals(string)) {
-				if (initialFound == false) {
-					initialFound = true;
-					foundData = dataVector.get(i);
-				} else {
-					System.out.println("Duplicate value found for data type "+string+" in "+this+"!");
-					return null;
-				}
-			}
-		}
-		if (initialFound == true) return foundData;
-		else return null;
-	}
-	
-	int iterateDataToIndex(String string) {
-		boolean initialFound = false;
-		int foundDataIndex = -1;
-		for (int i = 0;i<dataVector.size();i++) {
-			if (dataVector.get(i).type().equals(string)) {
-				if (initialFound == false) {
-					initialFound = true;
-					foundDataIndex = i;
-				} else {
-					System.out.println("Duplicate value found for data type "+string+" in "+this+"!");
-					return -1;
-				}
-			}
-		}
-		if (initialFound == true) return foundDataIndex;
-		else return -1;
-	}
-	
-	public Vector<Data> getDataVector() {
-		return dataVector;
-	}
-	
-	public void addData(Data data) {
-		if (data!=null) dataVector.add(data);
-		else System.out.println("ERROR: DATA IS NULL");
+	public DataSystem getDataSystem() {
+		return dataSystem;
 	}
 	
 	public int getBaseAge() {

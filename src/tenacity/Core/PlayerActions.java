@@ -1,13 +1,14 @@
 package tenacity.Core;
 
 import tenacity.Entity.Entity;
+import tenacity.Entity.Player;
 import tenacity.Entity.PlayerClient;
 import tenacity.Network.ClientSession;
 import tenacity.Places.*;
 
 public class PlayerActions {
 	
-	public static void look(PlayerClient player) {
+	public static void look(Player player) {
 		System.out.println("Running PlayerAction [look]");
 		Area area = player.getCurrentArea();
 		ClientSession playerThread = player.getClientSession();
@@ -19,21 +20,21 @@ public class PlayerActions {
 		//GUI.printParseColor("You look around the area and see: "+area.getEntityDescs(), true);
 	}
 	
-	public static void say(PlayerClient player, String message) {
+	public static void say(Player clientPlayer, String message) {
 		System.out.println("Running PlayerAction [say]");
-		Area area = player.getCurrentArea();
-		ClientSession playerThread = player.getClientSession();
+		Area area = clientPlayer.getCurrentArea();
+		ClientSession playerThread = clientPlayer.getClientSession();
 		for (int i=0;i<area.getEntities().size();i++) {
 			Entity entity = area.getEntities().get(i);
-			if (entity instanceof PlayerClient && !entity.equals(player)) {
+			if (entity instanceof PlayerClient && !entity.equals(clientPlayer)) {
 				PlayerClient playerEntity = (PlayerClient) entity;
-				playerEntity.getClientSession().send("COLPRNT "+player.getName()+" says, \""+message+"\"");
+				playerEntity.getClientSession().send("COLPRNT "+clientPlayer.getName()+" says, \""+message+"\"");
 			}
 		}
 		playerThread.send("COLPRNT You say, \""+message+"\"");
 	}
 	
-	public static void emote(PlayerClient player, String message) {
+	public static void emote(Player player, String message) {
 		System.out.println("Running PlayerAction [emote]");
 		Area area = player.getCurrentArea();
 		ClientSession playerThread = player.getClientSession();

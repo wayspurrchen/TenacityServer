@@ -4,17 +4,10 @@ import tenacity.Network.ClientSession;
 
 public class PlayerClient extends Player {
 	
-	ClientSession session;
-	
 	public PlayerClient(String name, ClientSession session) {
-		super(name);
+		super(name, session);
 		className = "PlayerClient";
 		this.session = session;
 	}
-	
-	public ClientSession getClientSession() {
-		return session;
-	}
-	
 	
 }

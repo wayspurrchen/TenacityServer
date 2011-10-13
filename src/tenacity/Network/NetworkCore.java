@@ -1,29 +1,20 @@
 package tenacity.Network;
 
 import java.io.IOException;
-import java.net.DatagramSocket;
-import java.net.SocketException;
-import java.util.*;
+import java.net.InetAddress;
+import java.net.Socket;
 
 
 
-public class NetworkCore {
+public class NetworkCore{
 	
-	public static Vector<ClientSession> sessions;
-	public static DatagramSocket socket;
-	public static int port = 4444;
+	public static boolean listening = true;
+	public static NetworkManager networkManager;
 	
-	public NetworkCore() {
-		sessions = new Vector<ClientSession>();
-		
-		try {
-			socket = new DatagramSocket(port);
-			new DatagramReceiver().start();
-		} catch (SocketException e1) {
-			e1.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public NetworkCore() throws IOException {
+		networkManager = new NetworkManager();
+		networkManager.start();
+		//Socket serverClientSocket = new Socket(InetAddress.getLocalHost(), 4444); // Create server session
 	}
 	
 }

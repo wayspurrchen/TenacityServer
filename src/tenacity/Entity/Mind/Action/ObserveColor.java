@@ -11,14 +11,14 @@ public class ObserveColor extends Action {
 	}
 
 	void execute() {
-		Data data = target.getDataByType("color");
+		Data data = target.getDataSystem().getDataByType("color");
 		actor.getMind().enterData(data);
 		System.out.println(actor + " (" + actor.getName() + ") observed color of " + target
 				+ " (" + target.getName() + "), " + actor + " has added data entry" + data);
 	}
 	
 	void execute(String parentData) {
-		Data data = target.getDataByType(parentData).getChildrenByType("color");
+		Data data = target.getDataSystem().getDataByType(parentData).getChildrenByType("color");
 		actor.getMind().enterData(data);
 		System.out.println(actor + " (" + actor.getName() + ") observed color of " + target
 				+ " (" + target.getName() + "), " + actor + " has added data entry" + data);
